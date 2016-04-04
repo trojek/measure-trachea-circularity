@@ -15,7 +15,7 @@ public class IJ_Plugin implements PlugIn {
 
 	static String main_folder = "/home/tomasz/Documents/Projects/Nauka/Bronchoskopia/screen_shot/";
 	static String input_folder = "norma_ke/";
-	static int num_of_photos = 144;
+	static int num_of_photos = 10;
 	
 	public void run(String arg) {
 	
@@ -84,8 +84,6 @@ public class IJ_Plugin implements PlugIn {
 				// Filter
 				IJ.run(imp, "Median...", "radius=15");
 
-				IJ.saveAs(imp, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
-
 				// -------------------- Begin of image to analyze --------------------- //
 
 				// What to measure...
@@ -96,6 +94,7 @@ public class IJ_Plugin implements PlugIn {
 				// -------------------- Begin of prepare human-readable (easy to analysis) image. --------------------- //
 				
 				IJ.run(imp, "Outline", "");
+				IJ.saveAs(imp, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
 				ImagePlus imp1 = IJ.openImage(main_folder + input_folder + i + file_extra + file_extension);
 				ImagePlus imp2 = IJ.openImage(main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
    				ImageCalculator ic = new ImageCalculator();
