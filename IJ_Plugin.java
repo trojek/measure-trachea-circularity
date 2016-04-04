@@ -84,22 +84,23 @@ public class IJ_Plugin implements PlugIn {
 				// Filter
 				IJ.run(imp, "Median...", "radius=15");
 
+				IJ.saveAs(imp, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
+
 				// -------------------- Begin of image to analyze --------------------- //
 
 				// What to measure...
 				IJ.run("Set Measurements...", "area mean min centroid shape feret's redirect=None decimal=3");
 				IJ.run(imp, "Analyze Particles...", "show=Nothing clear");
 
-				// Outline
-				// IJ.run(imp, "Outline", "");
-
+	
 				// -------------------- Begin of prepare human-readable (easy to analysis) image. --------------------- //
-				/*
-				ImagePlus imp1 = IJ.openImage(main_folder + input_folder + i + file_extension);
+				
+				IJ.run(imp, "Outline", "");
+				ImagePlus imp1 = IJ.openImage(main_folder + input_folder + i + file_extra + file_extension);
 				ImagePlus imp2 = IJ.openImage(main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
    				ImageCalculator ic = new ImageCalculator();
   				ImagePlus imp3 = ic.run("OR create", imp1, imp2);
-  				*/		
+  				IJ.saveAs(imp3, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_final_" + method + file_extension);		
 
 				ResultsTable rt = Analyzer.getResultsTable();
 				if (rt == null) {
@@ -109,8 +110,7 @@ public class IJ_Plugin implements PlugIn {
 
 				int num_of_objects = rt.size();
 
-				// Remove...
-				//IJ.saveAs(imp3, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_final_" + method + file_extension);
+				
 				if(num_of_objects == 1){
 					// save
 					// IJ.saveAs(imp3, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
