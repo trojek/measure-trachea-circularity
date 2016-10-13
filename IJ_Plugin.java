@@ -14,8 +14,8 @@ import java.io.BufferedWriter;
 public class IJ_Plugin implements PlugIn {
 
 	static String main_folder = "/home/tomasz/Documents/Projects/Nauka/Bronchoskopia/screen_shot/";
-	static String input_folder = "norma_ke/";
-	static int num_of_photos = 10;
+	static String input_folder = "test_pm/";
+	static int num_of_photos = 8;
 	
 	public void run(String arg) {
 	
@@ -99,8 +99,7 @@ public class IJ_Plugin implements PlugIn {
 				ImagePlus imp2 = IJ.openImage(main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
    				ImageCalculator ic = new ImageCalculator();
   				ImagePlus imp3 = ic.run("OR create", imp1, imp2);
-  				IJ.saveAs(imp3, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_final_" + method + file_extension);		
-
+  				
 				ResultsTable rt = Analyzer.getResultsTable();
 				if (rt == null) {
 						rt = new ResultsTable();
@@ -111,13 +110,13 @@ public class IJ_Plugin implements PlugIn {
 
 				
 				if(num_of_objects == 1){
-					// save
-					// IJ.saveAs(imp3, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_outlined_" + method + file_extension);
-					// IJ.log("Circ: " + rt.getValueAsDouble(18, 0));
 					counter++;
 					circularity += rt.getValueAsDouble(18, 0);
 					out.write(rt.getValueAsDouble(18, 0) + ";");
-					
+
+					//moved from previoused section
+					IJ.saveAs(imp3, "Jpeg", main_folder + input_folder + method	+ "/" + i + "_final_" + method + file_extension);		
+
 					/*
 					// Shows columns names
 					for (String heading: rt.getHeadings()) {
